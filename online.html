@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAESTRO TOOLS ONLINE - Advanced PenTest Tools</title>
+    <title>MAESTRO TOOLS ONLINE - Ultimate Hacking Suite</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Styling for page */
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(45deg, #111, #333);
@@ -40,7 +39,7 @@
             border: 1px solid rgba(255, 0, 0, 0.5);
         }
 
-        h1 {
+        h1, h2, h3 {
             text-align: center;
             color: #fff;
             margin-bottom: 20px;
@@ -52,9 +51,13 @@
 
         h2 {
             color: #ff3333;
-            margin-top: 20px;
             font-size: 24px;
-            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #ff6666;
+            font-size: 22px;
             margin-bottom: 20px;
         }
 
@@ -62,7 +65,7 @@
             margin-bottom: 20px;
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="url"] {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -73,7 +76,7 @@
             font-size: 16px;
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus, input[type="url"]:focus {
             outline: none;
             border-color: #ff6666;
             box-shadow: 0 0 5px rgba(255, 102, 102, 0.7);
@@ -110,20 +113,13 @@
         }
 
         @keyframes textGlow {
-            0% {
-                text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333, 0 0 30px #ff3333;
-            }
-            50% {
-                text-shadow: 0 0 20px #ff6666, 0 0 40px #ff6666, 0 0 60px #ff6666;
-            }
-            100% {
-                text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333, 0 0 30px #ff3333;
-            }
+            0% { text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333, 0 0 30px #ff3333; }
+            50% { text-shadow: 0 0 20px #ff6666, 0 0 40px #ff6666, 0 0 60px #ff6666; }
+            100% { text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333, 0 0 30px #ff3333; }
         }
     </style>
 </head>
 <body>
-    <a href="home.html" style="color: #e40b0b; font-size: 16px; text-decoration: none; margin-top: 30px;">Go To Home Page</a>
     <div class="container">
         <h1>MAESTRO <span>TOOLS</span> ONLINE</h1>
 
@@ -135,12 +131,12 @@
             <div id="subdomainReport" class="report"></div>
         </div>
 
-        <!-- CVE Search Section -->
+        <!-- Nmap Online Scanner Section -->
         <div class="input-group">
-            <h2>CVE Search</h2>
-            <input type="text" id="cveSearchInput" placeholder="Enter CVE ID or keyword (e.g., CVE-2023-12345)">
-            <button onclick="performCveSearch()">Search CVE</button>
-            <div id="cveReport" class="report"></div>
+            <h2>Nmap Online Scanner</h2>
+            <input type="text" id="nmapInput" placeholder="Enter IP address to scan (e.g., 192.168.1.1)">
+            <button onclick="performNmapScan()">Scan IP</button>
+            <div id="nmapReport" class="report"></div>
         </div>
 
         <!-- SQL Injection Tester Section -->
@@ -151,17 +147,17 @@
             <div id="sqlInjectionReport" class="report"></div>
         </div>
 
-        <!-- PenTest Guide Section -->
+        <!-- Hacking Guide in Arabic -->
         <div class="input-group">
-            <h2>PenTest Guide</h2>
-            <p>This section provides a comprehensive guide for penetration testing. Use it to understand methodologies, tools, and best practices to conduct thorough penetration tests.</p>
-            <button onclick="showPenTestGuide()">View Full Guide</button>
-            <div id="penTestGuide" class="report"></div>
+            <h2>دليل المهارات الحديثة في الاختراق</h2>
+            <p>هذا القسم يحتوي على دليل كامل لتعلم تقنيات الاختراق الحديثة وأحدث المهارات التي تحتاجها لتصبح خبيرًا في الأمن السيبراني.</p>
+            <button onclick="showHackingGuide()">عرض الدليل</button>
+            <div id="hackingGuide" class="report"></div>
         </div>
     </div>
 
     <script>
-        // Subdomain Finder Simulation
+        // Subdomain Finder Function
         function performSubdomainSearch() {
             const domain = document.getElementById('subdomainInput').value;
             const report = document.getElementById('subdomainReport');
@@ -171,30 +167,30 @@
                 return;
             }
 
-            // Simulate the output; integrate real API or tools as needed
+            // Simulate subdomain finding process
             report.innerHTML = `Searching for subdomains of: ${domain}...\n`;
-            report.innerHTML += `- This tool uses real services such as Amass or Sublist3r.\n`;
-            report.innerHTML += `- Replace with actual API calls or libraries for complete functionality.\n`;
+            report.innerHTML += `- This tool utilizes services like Amass, Sublist3r, and DNS resolution libraries.\n`;
+            report.innerHTML += `- For actual use, replace with API calls to Sublist3r or Amass.\n`;
+            report.innerHTML += `Example output:\n - api.example.com\n - blog.example.com\n - dev.example.com\n`;
         }
 
-        // CVE Search using Google
-        function performCveSearch() {
-            const keyword = document.getElementById('cveSearchInput').value;
-            const report = document.getElementById('cveReport');
+        // Nmap Scanner Function
+        function performNmapScan() {
+            const ip = document.getElementById('nmapInput').value;
+            const report = document.getElementById('nmapReport');
 
-            if (!keyword) {
-                alert('Please enter a valid CVE ID or keyword.');
+            if (!ip) {
+                alert('Please enter a valid IP address.');
                 return;
             }
 
-            // Open search results in a new tab
-            window.open(`https://www.google.com/search?q=${encodeURIComponent(keyword)}`, '_blank');
-
-            report.innerHTML = `Searching for CVE: ${keyword} on Google...\n`;
-            report.innerHTML += `- Check your browser for search results.\n`;
+            report.innerHTML = `Scanning IP: ${ip}...\n`;
+            report.innerHTML += `- Use actual Nmap scanning libraries or API to get real scan results.\n`;
+            report.innerHTML += `- Example output: Ports: 80 (open), 22 (closed), 443 (open)\n`;
+            report.innerHTML += `- Simulate or integrate with a secure tool for complete scans.\n`;
         }
 
-        // Simulate SQL Injection Test
+        // SQL Injection Tester Function
         function performSqlInjectionTest() {
             const input = document.getElementById('sqlInput').value;
             const report = document.getElementById('sqlInjectionReport');
@@ -207,23 +203,21 @@
             report.innerHTML = `Testing for SQL Injection on: ${input}...\n`;
             report.innerHTML += `- Example payloads used:\n`;
             report.innerHTML += `1. ' OR '1'='1\n`;
-            report.innerHTML += `2. '; DROP TABLE users;\n`;
-            report.innerHTML += `3. ' UNION SELECT null, username, password FROM users--\n`;
-            report.innerHTML += `- This tool simulates tests with payloads to detect SQL Injection.\n`;
-            report.innerHTML += `- Replace with actual tools or scripts for accurate assessment.\n`;
+            report.innerHTML += `2. ' OR 'a'='a\n`;
+            report.innerHTML += `- Testing is simulated; use secure scripts or services for live checks.\n`;
+            report.innerHTML += `Ensure testing is done responsibly and legally.\n`;
         }
 
-        // Display PenTest Guide
-        function showPenTestGuide() {
-            const guide = document.getElementById('penTestGuide');
-            guide.innerHTML = `PenTest Guide:\n`;
-            guide.innerHTML += `1. Reconnaissance: Gather information about the target.\n`;
-            guide.innerHTML += `2. Scanning: Identify active devices and open ports.\n`;
-            guide.innerHTML += `3. Enumeration: Extract detailed information.\n`;
-            guide.innerHTML += `4. Exploitation: Attempt to exploit vulnerabilities.\n`;
-            guide.innerHTML += `5. Post-Exploitation: Maintain access and assess network.\n`;
-            guide.innerHTML += `6. Reporting: Document findings with actionable advice.\n`;
-            guide.innerHTML += `Ensure your testing is authorized and follows ethical guidelines.`;
+        // Display Arabic Hacking Guide
+        function showHackingGuide() {
+            const guide = document.getElementById('hackingGuide');
+            guide.innerHTML = `دليل المهارات الحديثة في الاختراق:\n`;
+            guide.innerHTML += `1. التعرف على الشبكات واستكشاف المعلومات.\n`;
+            guide.innerHTML += `2. استخدام أدوات فحص الأمان مثل Nmap وWireshark.\n`;
+            guide.innerHTML += `3. تطبيق تقنيات اختبار الاختراق المتقدمة.\n`;
+            guide.innerHTML += `4. استغلال الثغرات الأمنية مثل SQL Injection.\n`;
+            guide.innerHTML += `5. الحفاظ على سرية المعلومات وضمان الأمان.\n`;
+            guide.innerHTML += `تأكد من استخدام هذه المهارات لأغراض تعليمية وأخلاقية.\n`;
         }
     </script>
 </body>
