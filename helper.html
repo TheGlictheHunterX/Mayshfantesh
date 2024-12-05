@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Diagnostic Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(45deg, #111, #333);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100%;
+            overflow-y: auto;
+            padding-top: 50px;
+            animation: gradientBg 6s ease infinite;
+        }
+
+        @keyframes gradientBg {
+            0% { background: linear-gradient(45deg, #1a1a1a, #333); }
+            50% { background: linear-gradient(45deg, #333, #1a1a1a); }
+            100% { background: linear-gradient(45deg, #1a1a1a, #333); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 128, 255, 0.5);
+            margin-top: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 128, 255, 0.5);
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: textGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        h2 {
+            color: #00bfff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #80caff;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #333;
+            border: 1px solid #00bfff;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #80caff;
+            box-shadow: 0 0 5px rgba(128, 202, 255, 0.7);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #00bfff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #80caff;
+        }
+
+        .report {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 5px;
+            color: #00bfff;
+            font-size: 14px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 128, 255, 0.6);
+            text-shadow: 0 0 5px #00bfff;
+            min-height: 100px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #00bfff; }
+            50% { text-shadow: 0 0 20px #80caff, 0 0 40px #80caff, 0 0 60px #80caff; }
+            100% { text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #00bfff; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Server Diagnostic Tool</h1>
+
+        <!-- Ping Test Section -->
+        <div class="input-group">
+            <h2>Ping Test</h2>
+            <input type="text" id="pingInput" placeholder="Enter server address (e.g., google.com)">
+            <button onclick="performPingTest()">Run Ping Test</button>
+            <div id="pingReport" class="report"></div>
+        </div>
+
+        <!-- Port Status Checker -->
+        <div class="input-group">
+            <h2>Port Status Checker</h2>
+            <input type="text" id="portInput" placeholder="Enter server address (e.g., example.com)">
+            <input type="number" id="portNumber" placeholder="Enter port number (e.g., 80)" min="1" max="65535">
+            <button onclick="checkPortStatus()">Check Port Status</button>
+            <div id="portReport" class="report"></div>
+        </div>
+
+        <!-- Server Information -->
+        <div class="input-group">
+            <h2>Server Information</h2>
+            <input type="text" id="serverInfoInput" placeholder="Enter server address (e.g., 192.168.1.1)">
+            <button onclick="fetchServerInfo()">Fetch Server Info</button>
+            <div id="serverInfoReport" class="report"></div>
+        </div>
+    </div>
+
+    <script>
+        // Ping Test Function
+        function performPingTest() {
+            const server = document.getElementById('pingInput').value;
+            const report = document.getElementById('pingReport');
+
+            if (!server) {
+                alert('Please enter a server address.');
+                return;
+            }
+
+            report.innerHTML = `Pinging ${server}...\n`;
+            report.innerHTML += `- This tool uses a simulated ping response.\n`;
+            report.innerHTML += `- Sample output: Response time: 34ms\n`;
+            report.innerHTML += `- For live testing, use a command-line tool or API.\n`;
+        }
+
+        // Port Status Checker Function
+        function checkPortStatus() {
+            const server = document.getElementById('portInput').value;
+            const port = document.getElementById('portNumber').value;
+            const report = document.getElementById('portReport');
+
+            if (!server || !port) {
+                alert('Please enter a valid server address and port number.');
+                return;
+            }
+
+            report.innerHTML = `Checking port ${port} on ${server}...\n`;
+            report.innerHTML += `- This is a simulated response.\n`;
+            report.innerHTML += `- Sample output: Port ${port} is open.\n`;
+            report.innerHTML += `- For real scanning, use Nmap or network tools.\n`;
+        }
+
+        // Server Information Fetching Function
+        function fetchServerInfo() {
+            const server = document.getElementById('serverInfoInput').value;
+            const report = document.getElementById('serverInfoReport');
+
+            if (!server) {
+                alert('Please enter a server address.');
+                return;
+            }
+
+            report.innerHTML = `Fetching information for ${server}...\n`;
+            report.innerHTML += `- This tool simulates fetching server details.\n`;
+            report.innerHTML += `- Example output: Server OS: Linux, Server Type: Apache.\n`;
+            report.innerHTML += `- For accurate info, use server management tools.\n`;
+        }
+    </script>
+</body>
+</html>
