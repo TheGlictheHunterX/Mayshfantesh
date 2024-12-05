@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Add your existing styles here */
+        /* Styling for page */
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(45deg, #111, #333);
@@ -18,94 +18,212 @@
             justify-content: flex-start;
             min-height: 100%;
             overflow-y: auto;
-            position: relative;
             padding-top: 50px;
             animation: gradientBg 6s ease infinite;
         }
 
-        /* Other CSS rules unchanged */
+        @keyframes gradientBg {
+            0% { background: linear-gradient(45deg, #ff3333, #111); }
+            50% { background: linear-gradient(45deg, #111, #ff3333); }
+            100% { background: linear-gradient(45deg, #ff3333, #111); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.5);
+            margin-top: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: textGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        h2 {
+            color: #ff3333;
+            margin-top: 20px;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #333;
+            border: 1px solid #ff3333;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #ff6666;
+            box-shadow: 0 0 5px rgba(255, 102, 102, 0.7);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #ff3333;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff6666;
+        }
+
+        .report {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 5px;
+            color: #ff3333;
+            font-size: 14px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+            text-shadow: 0 0 5px #ff3333;
+            min-height: 100px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333, 0 0 30px #ff3333;
+            }
+            50% {
+                text-shadow: 0 0 20px #ff6666, 0 0 40px #ff6666, 0 0 60px #ff6666;
+            }
+            100% {
+                text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333, 0 0 30px #ff3333;
+            }
+        }
     </style>
 </head>
 <body>
-    <a href="home.html">Go To Home Page</a>
     <div class="container">
         <h1>MAESTRO <span>TOOLS</span> ONLINE</h1>
 
-        <!-- CVE Search and Vulnerability Scanner Section -->
-        <div class="content-section">
-            <h2 class="section-heading">CVE Search Bar</h2>
-            <input type="text" id="cveInput" placeholder="Enter CVE ID (e.g., CVE-2024-1234)">
-            <button onclick="searchCVE()">Search CVE</button>
-            <div id="cveReport" class="report"></div>
-        </div>
-
-        <!-- Subdomain Enumeration Section -->
-        <div class="content-section">
-            <h2 class="section-heading">Subdomain Enumeration</h2>
-            <input type="text" id="subdomainInput" placeholder="Enter domain to check for subdomains (e.g., example.com)">
-            <button onclick="performSubdomainScan()">Check Subdomains</button>
+        <!-- Subdomain Finder Section -->
+        <div class="input-group">
+            <h2>Subdomain Finder</h2>
+            <input type="text" id="subdomainInput" placeholder="Enter domain to find subdomains (e.g., example.com)">
+            <button onclick="performSubdomainSearch()">Find Subdomains</button>
             <div id="subdomainReport" class="report"></div>
         </div>
 
-        <!-- SQL Injection Test Section -->
-        <div class="content-section">
-            <h2 class="section-heading">SQL Injection Test</h2>
-            <input type="text" id="sqlInput" placeholder="Enter URL to test for SQLi (e.g., http://example.com/test)"/>
-            <button onclick="testSQLInjection()">Test for SQL Injection</button>
+        <!-- CVE Search Section -->
+        <div class="input-group">
+            <h2>CVE Search</h2>
+            <input type="text" id="cveSearchInput" placeholder="Enter CVE ID or keyword (e.g., CVE-2023-12345)">
+            <button onclick="performCveSearch()">Search CVE</button>
+            <div id="cveReport" class="report"></div>
+        </div>
+
+        <!-- SQL Injection Tester Section -->
+        <div class="input-group">
+            <h2>SQL Injection Tester</h2>
+            <input type="text" id="sqlInput" placeholder="Enter URL or input for SQL Injection test">
+            <button onclick="performSqlInjectionTest()">Test for SQL Injection</button>
             <div id="sqlInjectionReport" class="report"></div>
         </div>
 
-        <!-- JavaScript -->
-        <script>
-            // Simulated CVE search functionality (integrate with a real API)
-            function searchCVE() {
-                const cveId = document.getElementById('cveInput').value;
-                const report = document.getElementById('cveReport');
-
-                if (!cveId) {
-                    alert('Please enter a CVE ID.');
-                    return;
-                }
-
-                report.innerHTML = `Searching for details on CVE ID: ${cveId}...<br>`;
-                report.innerHTML += `- Integrate with an API like NVD or CVE Details for live results.<br>`;
-                report.innerHTML += `- This is a simulated search. Replace with real API integration for actual data.`;
-            }
-
-            // Simulated subdomain scan (to be replaced with real API calls)
-            function performSubdomainScan() {
-                const domain = document.getElementById('subdomainInput').value;
-                const report = document.getElementById('subdomainReport');
-
-                if (!domain) {
-                    alert('Please enter a valid domain.');
-                    return;
-                }
-
-                report.innerHTML = `Enumerating subdomains for: ${domain}...\n`;
-                report.innerHTML += `- Integrate with a service like Amass or Sublist3r for accurate results.\n`;
-                report.innerHTML += `- Example subdomains: sub1.${domain}, sub2.${domain}, sub3.${domain}.`;
-            }
-
-            // Simulated SQL Injection test (replace with real testing tools or APIs)
-            function testSQLInjection() {
-                const url = document.getElementById('sqlInput').value;
-                const report = document.getElementById('sqlInjectionReport');
-
-                if (!url) {
-                    alert('Please enter a valid URL.');
-                    return;
-                }
-
-                report.innerHTML = `Testing for SQL Injection on: ${url}...\n`;
-                report.innerHTML += `- This is a simulated test. Replace with real tools for actual SQLi testing.\n`;
-                report.innerHTML += `- Use tools like sqlmap for thorough testing.`;
-            }
-        </script>
-
-        <div class="footer">
-            <p>&copy; 2024 MAESTRO TOOLS ONLINE - All Rights Reserved. <a href="#">Privacy Policy</a></p>
+        <!-- PenTest Guide Section -->
+        <div class="input-group">
+            <h2>PenTest Guide</h2>
+            <p>This section provides a comprehensive guide for penetration testing. Use it to understand methodologies, tools, and best practices to conduct thorough penetration tests.</p>
+            <button onclick="showPenTestGuide()">View Full Guide</button>
+            <div id="penTestGuide" class="report"></div>
         </div>
     </div>
+
+    <script>
+        // Subdomain Finder Simulation
+        function performSubdomainSearch() {
+            const domain = document.getElementById('subdomainInput').value;
+            const report = document.getElementById('subdomainReport');
+
+            if (!domain) {
+                alert('Please enter a valid domain.');
+                return;
+            }
+
+            // Simulate the output; integrate real API or tools as needed
+            report.innerHTML = `Searching for subdomains of: ${domain}...\n`;
+            report.innerHTML += `- This tool uses real services such as Amass or Sublist3r.\n`;
+            report.innerHTML += `- Replace with actual API calls or libraries for complete functionality.\n`;
+        }
+
+        // CVE Search using Google
+        function performCveSearch() {
+            const keyword = document.getElementById('cveSearchInput').value;
+            const report = document.getElementById('cveReport');
+
+            if (!keyword) {
+                alert('Please enter a valid CVE ID or keyword.');
+                return;
+            }
+
+            // Open search results in a new tab
+            window.open(`https://www.google.com/search?q=${encodeURIComponent(keyword)}`, '_blank');
+
+            report.innerHTML = `Searching for CVE: ${keyword} on Google...\n`;
+            report.innerHTML += `- Check your browser for search results.\n`;
+        }
+
+        // Simulate SQL Injection Test
+        function performSqlInjectionTest() {
+            const input = document.getElementById('sqlInput').value;
+            const report = document.getElementById('sqlInjectionReport');
+
+            if (!input) {
+                alert('Please enter a valid URL or input.');
+                return;
+            }
+
+            report.innerHTML = `Testing for SQL Injection on: ${input}...\n`;
+            report.innerHTML += `- Example payloads used:\n`;
+            report.innerHTML += `1. ' OR '1'='1\n`;
+            report.innerHTML += `2. '; DROP TABLE users;\n`;
+            report.innerHTML += `3. ' UNION SELECT null, username, password FROM users--\n`;
+            report.innerHTML += `- This tool simulates tests with payloads to detect SQL Injection.\n`;
+            report.innerHTML += `- Replace with actual tools or scripts for accurate assessment.\n`;
+        }
+
+        // Display PenTest Guide
+        function showPenTestGuide() {
+            const guide = document.getElementById('penTestGuide');
+            guide.innerHTML = `PenTest Guide:\n`;
+            guide.innerHTML += `1. Reconnaissance: Gather information about the target.\n`;
+            guide.innerHTML += `2. Scanning: Identify active devices and open ports.\n`;
+            guide.innerHTML += `3. Enumeration: Extract detailed information.\n`;
+            guide.innerHTML += `4. Exploitation: Attempt to exploit vulnerabilities.\n`;
+            guide.innerHTML += `5. Post-Exploitation: Maintain access and assess network.\n`;
+            guide.innerHTML += `6. Reporting: Document findings with actionable advice.\n`;
+            guide.innerHTML += `Ensure your testing is authorized and follows ethical guidelines.`;
+        }
+    </script>
 </body>
 </html>
